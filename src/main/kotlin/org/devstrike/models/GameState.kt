@@ -10,7 +10,9 @@ data class GameState(
     val field: Array<Array<Char?>> = emptyField(), //two dimensional array to represent what our fields look like
     val winningPlayer: Char? = null, //who is the winning player
     val isBoardFull: Boolean = false, //if the board is full then it is a draw and game should restart
-    val connectedPlayers: List<Char> = emptyList() //list of connected users, which will determine whether the game should start
+    val connectedPlayers: List<Char> = emptyList(), //list of connected users, which will determine whether the game should start
+    val XScore: Int = 0, //score of the X player
+    val OScore: Int = 0, //score of the O player
 ){
     companion object{
         fun emptyField(): Array<Array<Char?>>{
@@ -36,6 +38,8 @@ data class GameState(
         if (winningPlayer != other.winningPlayer) return false
         if (isBoardFull != other.isBoardFull) return false
         if (connectedPlayers != other.connectedPlayers) return false
+        if (XScore != other.XScore) return false
+        if (OScore != other.OScore) return false
 
         return true
     }
@@ -46,6 +50,8 @@ data class GameState(
         result = 31 * result + (winningPlayer?.hashCode() ?: 0)
         result = 31 * result + isBoardFull.hashCode()
         result = 31 * result + connectedPlayers.hashCode()
+        result = 31 * result + XScore.hashCode()
+        result = 31 * result + OScore.hashCode()
         return result
     }
 }
